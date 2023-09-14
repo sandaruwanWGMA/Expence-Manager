@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
-import ExpenceDetails from "./components/ExpenceDetails";
+import "./App.css";
+import ExpenceDetails from "./components/FormsDemo";
 
 function App() {
   return (

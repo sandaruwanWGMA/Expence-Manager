@@ -1,7 +1,7 @@
 import "../styles/ExpenceDetails.css";
 import { FieldValues, useForm } from "react-hook-form";
 
-function ExpenceDetails() {
+function FormsDemo() {
   interface formData {
     name: String;
     age: number;
@@ -10,7 +10,7 @@ function ExpenceDetails() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<formData>();
 
   const onSubmit = (data: FieldValues) => {
@@ -54,11 +54,11 @@ function ExpenceDetails() {
         )}
       </div>
 
-      <button type="submit" className="btn btn-primary">
+      <button disabled={!isValid} type="submit" className="btn btn-primary">
         submit
       </button>
     </form>
   );
 }
 
-export default ExpenceDetails;
+export default FormsDemo;
