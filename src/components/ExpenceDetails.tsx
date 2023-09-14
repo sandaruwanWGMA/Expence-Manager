@@ -1,9 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import errorMap from "zod/locales/en.js";
 
-function ExpenceDetails() {
+interface expense {
+  id: number;
+  description: string;
+  amount: number;
+  category: string;
+}
+
+interface Props {
+  expenses: expense[];
+  setExpenses: (exList: expense[]) => void;
+}
+
+function ExpenceDetails({ expenses, setExpenses }: Props) {
   const schema = z.object({
     description: z
       .string()
@@ -11,18 +22,29 @@ function ExpenceDetails() {
     amount: z
       .number({ invalid_type_error: "Amount is required" })
       .min(1, { message: "Amount should be more than 1" }),
-    categories: z.enum(["G", "U", "E"], {
+    categories: z.enum(["Gloceries", "Utilities", "Entertainment"], {
       errorMap: () => ({ message: "Category is required." }),
     }),
   });
 
   type formData = z.infer<typeof schema>;
 
-  const { register, handleSubmit, formState } = useForm<formData>({
+  const { register, handleSubmit, formState, reset } = useForm<formData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = () => {};
+  const onSubmit = (data: formData) => {
+    reset();
+    setExpenses([
+      ...expenses,
+      {
+        id: expenses.length,
+        description: data.description,
+        amount: data.amount,
+        category: data.categories,
+      },
+    ]);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -66,9 +88,9 @@ function ExpenceDetails() {
           {...register("categories")}
         >
           <option value="DV"></option>
-          <option value="G">Gloceries</option>
-          <option value="U">Utilities</option>
-          <option value="E">Entertainment</option>
+          <option value="Gloceries">Gloceries</option>
+          <option value="Utilities">Utilities</option>
+          <option value="Entertainment">Entertainment</option>
         </select>
         {formState.errors.categories && (
           <p className="text-danger">{formState.errors.categories.message}</p>
