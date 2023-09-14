@@ -49,7 +49,7 @@ function App() {
       <div className="space-box"></div>
 
       <ExpenseFilter onSelectCategory={onSelectCategory}></ExpenseFilter>
-      <ExpenceList expenses={expenses} onDelete={onDelete}></ExpenceList>
+      <ExpenceList expenses={ex} onDelete={onDelete}></ExpenceList>
     </>
   );
 }
