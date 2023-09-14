@@ -12,9 +12,10 @@ interface expense {
 interface Props {
   expenses: expense[];
   setExpenses: (exList: expense[]) => void;
+  onSelectCategory: (sel: String) => void;
 }
 
-function ExpenceDetails({ expenses, setExpenses }: Props) {
+function ExpenceDetails({ expenses, setExpenses, onSelectCategory }: Props) {
   const schema = z.object({
     description: z
       .string()
@@ -22,7 +23,7 @@ function ExpenceDetails({ expenses, setExpenses }: Props) {
     amount: z
       .number({ invalid_type_error: "Amount is required" })
       .min(1, { message: "Amount should be more than 1" }),
-    categories: z.enum(["Gloceries", "Utilities", "Entertainment"], {
+    categories: z.enum(["Groceries", "Utilities", "Entertainment"], {
       errorMap: () => ({ message: "Category is required." }),
     }),
   });
@@ -44,6 +45,7 @@ function ExpenceDetails({ expenses, setExpenses }: Props) {
         category: data.categories,
       },
     ]);
+    onSelectCategory(data.categories);
   };
 
   return (
@@ -82,13 +84,13 @@ function ExpenceDetails({ expenses, setExpenses }: Props) {
           Categories
         </label>
         <select
-          className="form-control custom-select s-c"
+          className="form-select"
           id="categories"
           defaultValue={"DV"}
           {...register("categories")}
         >
           <option value="DV"></option>
-          <option value="Gloceries">Gloceries</option>
+          <option value="Groceries">Gloceries</option>
           <option value="Utilities">Utilities</option>
           <option value="Entertainment">Entertainment</option>
         </select>

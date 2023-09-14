@@ -9,3 +9,12 @@ body {
 .s-c {
   width: 100%;
 }
+
+.space-box {
+  height: 42px;
+}
+
+.s-f {
+  width: 200px;
+  margin-bottom: 6px;
+}

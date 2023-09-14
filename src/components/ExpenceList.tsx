@@ -7,7 +7,7 @@ interface Expense {
 
 interface Props {
   expenses: Expense[];
-  onDelete: (id: number) => void;
+  onDelete: (ex: Expense) => void;
 }
 
 function ExpenceList({ expenses, onDelete }: Props) {
@@ -30,7 +30,7 @@ function ExpenceList({ expenses, onDelete }: Props) {
             <td>
               <button
                 className="btn btn-outline-danger"
-                onClick={() => onDelete(expense.id)}
+                onClick={() => onDelete(expense)}
               >
                 Delete
               </button>
