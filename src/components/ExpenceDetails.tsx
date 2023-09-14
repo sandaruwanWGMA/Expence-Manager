@@ -1,42 +1,61 @@
 import "../styles/ExpenceDetails.css";
+import { FieldValues, useForm } from "react-hook-form";
 
 function ExpenceDetails() {
+  interface formData {
+    name: String;
+    age: number;
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<formData>();
+
+  const onSubmit = (data: FieldValues) => {
+    console.log(data);
+  };
+
   return (
-    <form className="row g-3 needs-validation">
-      <div className="form-group">
-        <label htmlFor="formGroupExampleInput">Description</label>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="mb-3">
+        <label htmlFor="name" className="form-label">
+          Name
+        </label>
         <input
+          {...register("name", { required: true, minLength: 3 })}
+          id="name"
           type="text"
-          className="form-control"
-          id="formGroupExampleInput"
           placeholder=""
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="formGroupExampleInput">Amount</label>
-        <input
-          type="text"
           className="form-control"
-          id="formGroupExampleInput"
-          placeholder=""
-        />
+        ></input>
+        {errors.name?.type === "required" && (
+          <p className="text-danger">Username is required</p>
+        )}
+        {errors.name?.type === "minLength" && (
+          <p className="text-danger">Username requires at least 3 characters</p>
+        )}
       </div>
 
-      <div className="form-n-group">
-        <label htmlFor="formGroupExampleInput">Categories</label>
-        <select className="form-select" id="validationCustom04" required>
-          <option selected disabled value=""></option>
-          <option>Gloceries</option>
-          <option>Furniture</option>
-          <option>Jewellery</option>
-        </select>
+      <div className="mb-3">
+        <label htmlFor="age" className="form-label">
+          Age
+        </label>
+        <input
+          {...register("age", { required: true })}
+          id="age"
+          type="number"
+          placeholder=""
+          className="form-control"
+        ></input>
+        {errors.age?.type === "required" && (
+          <p className="text-danger">Age is required</p>
+        )}
       </div>
-
-      <div className="col-12">
-        <button className="btn btn-primary" type="submit">
-          Submit form
-        </button>
-      </div>
+      <button type="submit" className="btn btn-primary">
+        submit
+      </button>
     </form>
   );
 }
