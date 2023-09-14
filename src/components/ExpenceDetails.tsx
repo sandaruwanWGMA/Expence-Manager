@@ -2,23 +2,40 @@ import "../styles/ExpenceDetails.css";
 
 function ExpenceDetails() {
   return (
-    <form>
-      <h5>Description</h5>
-      <input className="form-control" type="text" placeholder="" />
-      <h5>Amount</h5>
-      <input className="form-control" type="text" placeholder="" />
-      <h5>Category</h5>
-
+    <form className="row g-3 needs-validation">
       <div className="form-group">
-        <select className="custom-select" required>
-          <option value="">Open this select menu</option>
-          <option>Glosaries</option>
-          <option>Utilities</option>
-          <option>Entertainment</option>
+        <label htmlFor="formGroupExampleInput">Description</label>
+        <input
+          type="text"
+          className="form-control"
+          id="formGroupExampleInput"
+          placeholder=""
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="formGroupExampleInput">Amount</label>
+        <input
+          type="text"
+          className="form-control"
+          id="formGroupExampleInput"
+          placeholder=""
+        />
+      </div>
+
+      <div className="form-n-group">
+        <label htmlFor="formGroupExampleInput">Categories</label>
+        <select className="form-select" id="validationCustom04" required>
+          <option selected disabled value=""></option>
+          <option>Gloceries</option>
+          <option>Furniture</option>
+          <option>Jewellery</option>
         </select>
-        <div className="invalid-feedback">
-          Example invalid custom select feedback
-        </div>
+      </div>
+
+      <div className="col-12">
+        <button className="btn btn-primary" type="submit">
+          Submit form
+        </button>
       </div>
     </form>
   );
